@@ -1,3 +1,9 @@
+-- [[ UNLOCKING ALL EMOTES FIRST ]] --
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/7yd7/Hub/refs/heads/Branch/GUIS/Emotes.lua"))()
+end)
+
+-- [[ STARTING YOUR ORIGINAL SCRIPT ]] --
 local LP = game.Players.LocalPlayer
 local RS = game:GetService("RunService")
 local Camera = workspace.CurrentCamera
@@ -29,10 +35,10 @@ ActionBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
 ActionBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 ActionBtn.Font = "Code"
 
--- [[ 2. دوگمەیا TOOGLE TOUCH (ئەوا تە دڤیا) ]] --
+-- [[ 2. دوگمەیا TOOGLE TOUCH ]] --
 local ToggleBtn = Instance.new("TextButton", SG)
 ToggleBtn.Size = UDim2.new(0, 60, 0, 30)
-ToggleBtn.Position = UDim2.new(0, 0, 0.35, 0) -- ل کەلەکا شاشێ
+ToggleBtn.Position = UDim2.new(0, 0, 0.35, 0)
 ToggleBtn.Text = "SHOW/HIDE"
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -64,7 +70,6 @@ ActionBtn.MouseButton1Click:Connect(function()
                     local MyRoot = LP.Character:FindFirstChild("HumanoidRootPart")
                     local TRoot = target.Character.HumanoidRootPart
                     if MyRoot then
-                        -- کامێرا جێگیر دکەت دا شاشە نەلەرزیت
                         Camera.CFrame = CFrame.new(TRoot.Position + Vector3.new(0, 12, 18), TRoot.Position)
                         
                         for i = 1, 6 do
@@ -87,4 +92,3 @@ RS.Stepped:Connect(function()
         end
     end
 end)
-
