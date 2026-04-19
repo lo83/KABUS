@@ -1,94 +1,144 @@
--- [[ UNLOCKING ALL EMOTES FIRST ]] --
-task.spawn(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/7yd7/Hub/refs/heads/Branch/GUIS/Emotes.lua"))()
-end)
+-- [[ RYL HUB V1 - HEIGHT 0.9 ]] --
+-- Credits: RYL MERE R7
 
--- [[ STARTING YOUR ORIGINAL SCRIPT ]] --
-local LP = game.Players.LocalPlayer
-local RS = game:GetService("RunService")
-local Camera = workspace.CurrentCamera
-local SG = Instance.new("ScreenGui", game.CoreGui)
+local Player = game.Players.LocalPlayer
+local CoreGui = game:GetService("CoreGui")
+local RunService = game:GetService("RunService")
 
--- [[ 1. پانێلا سەرەکی ]] --
-local Main = Instance.new("Frame", SG)
-Main.Size = UDim2.new(0, 160, 0, 110)
-Main.Position = UDim2.new(0.05, 0, 0.4, 0)
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-Main.BorderSizePixel = 2
-Main.BorderColor3 = Color3.fromRGB(255, 0, 0)
-Main.Active = true
-Main.Draggable = true
+-- [ 1. HACKER NOTIFICATION ] --
+local function ShowHackerNotify()
+    local NotifyGui = Instance.new("ScreenGui", CoreGui)
+    local TextLabel = Instance.new("TextLabel", NotifyGui)
+    TextLabel.Size = UDim2.new(1, 0, 0.2, 0)
+    TextLabel.Position = UDim2.new(0, 0, 0.4, 0)
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    TextLabel.TextSize = 50
+    TextLabel.Font = Enum.Font.Code
+    TextLabel.Text = ">> RYL MERE R7 LOADED <<"
+    task.delay(2, function() NotifyGui:Destroy() end)
+end
+ShowHackerNotify()
 
-local Title = Instance.new("TextLabel", Main)
-Title.Size = UDim2.new(1, 0, 0.3, 0)
-Title.Text = "XxRioKabusXx"
+-- [ 2. GUI SETUP ] --
+if CoreGui:FindFirstChild("RYL_HUB_V1") then CoreGui.RYL_HUB_V1:Destroy() end
+local MainGui = Instance.new("ScreenGui", CoreGui)
+MainGui.Name = "RYL_HUB_V1"
+
+local MainFrame = Instance.new("Frame", MainGui)
+MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+MainFrame.Size = UDim2.new(0, 220, 0, 360)
+MainFrame.Position = UDim2.new(0.3, 0, 0.25, 0)
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.BorderSizePixel = 2
+MainFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Text = "RYL HUB V1"
+Title.Size = UDim2.new(1, 0, 0.1, 0)
 Title.TextColor3 = Color3.fromRGB(255, 0, 0)
-Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Title.Font = "Code"
-Title.TextSize = 15
+Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Title.Font = Enum.Font.GothamBold
 
-local ActionBtn = Instance.new("TextButton", Main)
-ActionBtn.Size = UDim2.new(0.9, 0, 0.5, 0)
-ActionBtn.Position = UDim2.new(0.05, 0, 0.4, 0)
-ActionBtn.Text = "START DESTROY"
-ActionBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
-ActionBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ActionBtn.Font = "Code"
+local TargetInput = Instance.new("TextBox", MainFrame)
+TargetInput.PlaceholderText = "2 Letters of Name..."
+TargetInput.Size = UDim2.new(0.9, 0, 0.1, 0)
+TargetInput.Position = UDim2.new(0.05, 0, 0.12, 0)
+TargetInput.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TargetInput.TextColor3 = Color3.fromRGB(255, 255, 255)
 
--- [[ 2. دوگمەیا TOOGLE TOUCH ]] --
-local ToggleBtn = Instance.new("TextButton", SG)
-ToggleBtn.Size = UDim2.new(0, 60, 0, 30)
-ToggleBtn.Position = UDim2.new(0, 0, 0.35, 0)
-ToggleBtn.Text = "SHOW/HIDE"
-ToggleBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+local SpeedInput = Instance.new("TextBox", MainFrame)
+SpeedInput.Text = "25"
+SpeedInput.Size = UDim2.new(0.9, 0, 0.1, 0)
+SpeedInput.Position = UDim2.new(0.05, 0, 0.24, 0)
+SpeedInput.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+SpeedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local function CreateBtn(text, pos, color)
+    local btn = Instance.new("TextButton", MainFrame)
+    btn.Text = text
+    btn.Size = UDim2.new(0.9, 0, 0.1, 0)
+    btn.Position = pos
+    btn.BackgroundColor3 = color
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.Font = Enum.Font.Code
+    btn.BorderSizePixel = 0
+    return btn
+end
+
+local AntiBangBtn = CreateBtn("ANTI-BANG", UDim2.new(0.05, 0, 0.38, 0), Color3.fromRGB(60, 60, 60))
+local FrontBtn = CreateBtn("MODE 1 (FRONT)", UDim2.new(0.05, 0, 0.50, 0), Color3.fromRGB(150, 0, 0))
+local BackBtn = CreateBtn("MODE 2 (BACK)", UDim2.new(0.05, 0, 0.62, 0), Color3.fromRGB(100, 0, 0))
+local StopBtn = CreateBtn("STOP EXECUTION", UDim2.new(0.05, 0, 0.76, 0), Color3.fromRGB(40, 40, 40))
+StopBtn.Size = UDim2.new(0.9, 0, 0.14, 0)
+
+local ToggleBtn = Instance.new("TextButton", MainGui)
+ToggleBtn.Size = UDim2.new(0, 60, 0, 35)
+ToggleBtn.Position = UDim2.new(0, 10, 0.4, 0)
+ToggleBtn.Text = "RYL"
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ToggleBtn.TextSize = 10
-Instance.new("UICorner", ToggleBtn)
+ToggleBtn.Draggable = true
+ToggleBtn.MouseButton1Click:Connect(function() MainFrame.Visible = not MainFrame.Visible end)
 
-ToggleBtn.MouseButton1Click:Connect(function()
-    Main.Visible = not Main.Visible
-end)
+-- [ 3. CORE LOGIC ] --
+local TargetPlayer = nil
+local Mode = ""
+local IsActive = false
+local Angle = 0
 
--- [[ 3. مەکینەیا وێرانکرنێ دگەل چاککرنا کامێرێ ]] --
-_G.MassBurning = false
-
-ActionBtn.MouseButton1Click:Connect(function()
-    _G.MassBurning = not _G.MassBurning
-    ActionBtn.Text = _G.MassBurning and "STOP" or "START DESTROY"
-    ActionBtn.BackgroundColor3 = _G.MassBurning and Color3.fromRGB(0, 150, 0) or Color3.fromRGB(150, 0, 0)
-    
-    if _G.MassBurning then
-        Camera.CameraType = Enum.CameraType.Scriptable
-    else
-        Camera.CameraType = Enum.CameraType.Custom
+local function GetPlayer(S)
+    if S == "" then return nil end
+    for _, v in pairs(game.Players:GetPlayers()) do
+        if v.Name:lower():sub(1,#S) == S:lower() or v.DisplayName:lower():sub(1,#S) == S:lower() then return v end
     end
-    
-    task.spawn(function()
-        while _G.MassBurning do
-            for _, target in pairs(game.Players:GetPlayers()) do
-                if target ~= LP and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-                    local MyRoot = LP.Character:FindFirstChild("HumanoidRootPart")
-                    local TRoot = target.Character.HumanoidRootPart
-                    if MyRoot then
-                        Camera.CFrame = CFrame.new(TRoot.Position + Vector3.new(0, 12, 18), TRoot.Position)
-                        
-                        for i = 1, 6 do
-                            local T = tick() * 130
-                            MyRoot.CFrame = TRoot.CFrame * CFrame.new(math.cos(T)*7, 2, math.sin(T)*7)
-                            RS.RenderStepped:Wait()
-                        end
-                    end
-                end
-            end
-        end
-    end)
+end
+
+FrontBtn.MouseButton1Click:Connect(function()
+    TargetPlayer = GetPlayer(TargetInput.Text)
+    if TargetPlayer then Mode = "Front" IsActive = true Player.Character.Humanoid.Sit = true end
 end)
 
--- NO-COLLISION
-RS.Stepped:Connect(function()
-    if _G.MassBurning and LP.Character then
-        for _, v in pairs(LP.Character:GetDescendants()) do
-            if v:IsA("BasePart") then v.CanCollide = false end
+BackBtn.MouseButton1Click:Connect(function()
+    TargetPlayer = GetPlayer(TargetInput.Text)
+    if TargetPlayer then Mode = "Back" IsActive = true Player.Character.Humanoid.Sit = true end
+end)
+
+StopBtn.MouseButton1Click:Connect(function() 
+    IsActive = false 
+    Mode = "" 
+    if Player.Character:FindFirstChild("Humanoid") then Player.Character.Humanoid.Sit = false end
+    if Player.Character:FindFirstChild("HumanoidRootPart") then Player.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0) end
+end)
+
+AntiBangBtn.MouseButton1Click:Connect(function()
+    local hrp = Player.Character.HumanoidRootPart
+    workspace.FallenPartsDestroyHeight = -1000
+    local lastCF = hrp.CFrame
+    hrp.CFrame = CFrame.new(0, -500, 0)
+    task.wait(0.7)
+    hrp.CFrame = lastCF
+    workspace.FallenPartsDestroyHeight = -500
+end)
+
+RunService.RenderStepped:Connect(function()
+    if IsActive and TargetPlayer and TargetPlayer.Character and Player.Character then
+        local MyRoot = Player.Character:FindFirstChild("HumanoidRootPart")
+        local TheirRoot = TargetPlayer.Character:FindFirstChild("HumanoidRootPart")
+        
+        if MyRoot and TheirRoot then
+            local Speed = tonumber(SpeedInput.Text) or 25
+            Angle = Angle + (Speed / 10)
+            local MoveOffset = math.sin(Angle) * 1.5
+            
+            if Mode == "Front" then
+                -- Height set to 0.9 as requested
+                MyRoot.CFrame = TheirRoot.CFrame * CFrame.new(0, 0.9, -1.1) * CFrame.Angles(0, math.pi, 0) * CFrame.new(0, 0, MoveOffset)
+            elseif Mode == "Back" then
+                MyRoot.CFrame = TheirRoot.CFrame * CFrame.new(0, 0.9, 1.1) * CFrame.new(0, 0, MoveOffset)
+            end
+            MyRoot.Velocity = Vector3.new(0,0,0)
         end
     end
 end)
